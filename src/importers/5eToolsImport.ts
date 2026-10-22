@@ -1,4 +1,5 @@
 import { stringify } from "src/util/util";
+import { CR } from "src/data/constants";
 import type {
     ConditionImmunityArray,
     Creature5eTools,
@@ -101,6 +102,7 @@ export async function build5eMonsterFromFile(file: File): Promise<Monster[]> {
                                     : "",
                             ac: getAc(monster.ac),
                             speed: getSpeedString(monster),
+                            initiative: getInitiativeBonus(monster),
                             stats: [
                                 monster.str,
                                 monster.dex,
@@ -543,6 +545,18 @@ function getSpeedString(monster: Creature5eTools): string {
         }
     }
     return stack.join(joiner);
+}
+
+function getInitiativeBonus(monster: Creature5eTools): number {
+    const initiative = monster.initiative;
+    if (!initiative) return 0;
+    if (typeof initiative == "number") return initiative;
+
+    const cr = getCR(monster.cr);
+    let cr_value = CR[cr]?.value ?? 0;
+    
+    const prof_bonus = Math.max(Math.floor(2 + (cr_value - 1) / 4), 2);
+    return initiative.proficiency * prof_bonus;
 }
 
 function getSenses(monster: Creature5eTools): string {

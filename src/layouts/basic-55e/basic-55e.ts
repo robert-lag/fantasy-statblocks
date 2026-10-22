@@ -119,11 +119,11 @@ export const Statblock55e: StatblockItem[] = [
                         properties: ["initiative"],
                         display: "Initiative",
                         conditioned: false,
-                        callback: `if ("initiative" in monster) {
-                            return \`+\${monster.initiative} (\${monster.initiative + 10})\`;
-                        } else {
-                            return "+0 (10)";
-                        }`
+                        callback: `const score = monster.stats?.[1];
+if (score == null) return "";
+const modifier = Math.floor((score - 10) / 2);
+let initiative = modifier + (monster.initiative ?? 0);
+return \`\${initiative >= 0 ? "+" : ""}\${initiative} (\${initiative + 10})\`;`
                     }
                 ]
             },
@@ -135,7 +135,7 @@ export const Statblock55e: StatblockItem[] = [
                 dice: true,
                 diceProperty: "hit_dice",
                 diceCallback: `if ("hit_dice" in monster) {
-  return [{ text: monster.hit_dice }];
+  return [{ text: monster.hit_dice }, \`\${monster.hit_dice}\`];
 } else {
   return property;
 }`,

@@ -71,6 +71,11 @@ export type Creature5eTools =
                     special?: string;
                 };
           speed: Speed;
+          initiative?:
+            | {
+                proficiency: number;
+              }
+            | number;
           str: number | null;
           dex: number | null;
           con: number | null;
@@ -1021,6 +1026,11 @@ export type Creature5eTools =
                     special?: string;
                 };
           speed?: Speed;
+          initiative?:
+            | {
+                proficiency: number;
+              }
+            | number;
           str?: number | null;
           dex?: number | null;
           con?: number | null;
