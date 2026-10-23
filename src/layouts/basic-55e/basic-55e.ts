@@ -60,15 +60,44 @@ export const Statblock55e: StatblockItem[] = [
                                         type: "action",
                                         id: nanoid(),
                                         icon: "sword",
-                                        callback:
-                                            "try { InitiativeTracker.newEncounter({roll: true, creatures: [monster]}); } catch(e) {}"
+                                        callback: `(async() => {
+    if (typeof InitiativeTracker === "undefined") {
+        console.warn("Cannot create encounter: Initiative Tracker not loaded");
+        return;
+    }
+
+    if (!InitiativeTracker.plugin.view) {
+        await InitiativeTracker.plugin.addTrackerView();
+    }
+    InitiativeTracker.newEncounter({
+        roll: true,
+        creatures: [monster]
+    });
+    if (InitiativeTracker.plugin.view) {
+        InitiativeTracker.plugin.app.workspace.revealLeaf(InitiativeTracker.plugin.view.leaf);
+    }
+})();
+`
                                     },
                                     {
                                         type: "action",
                                         id: nanoid(),
                                         icon: "plus-with-circle",
-                                        callback:
-                                            "try { InitiativeTracker.addCreatures([monster]); } catch(e) {}"
+                                        callback: `(async() => {
+    if (typeof InitiativeTracker === "undefined") {
+        console.warn("Cannot add creature: Initiative Tracker not loaded");
+        return;
+    }
+
+    if (!InitiativeTracker.plugin.view) {
+        await InitiativeTracker.plugin.addTrackerView();
+    }
+    InitiativeTracker.addCreatures([monster]);
+    if (InitiativeTracker.plugin.view) {
+        InitiativeTracker.plugin.app.workspace.revealLeaf(InitiativeTracker.plugin.view.leaf);
+    }
+})();
+`
                                     }
                                 ]
                             }
