@@ -28,10 +28,11 @@ const abilityMap: { [key: string]: string } = {
 function parseString(str: string) {
     if (!str) return "";
     return str
-        .replace(/{@condition (.+?)(?:\|.+)?}/g, "$1")
-        .replace(/{@item (.+?)(?:\|.+)?}/g, "$1")
+        .replaceAll(/{@condition (.+?)(?:\|.+?)?}/g, "$1")
+        .replaceAll(/{@item (.+?)(?:\|.+?)?}/g, "$1")
         .replaceAll(/{@spell ([\s\S]+?)(?:\|.+?)?}/g, `$1`)
-        .replace(/{@recharge (.+?)(?:\|.+)?}/g, `(Recharge $1-6)`)
+        .replaceAll(/{@action ([\s\S]+?)(?:\|.+?)?}/g, `$1`)
+        .replace(/{@recharge (.+?)(?:\|.+?)?}/g, `(Recharge $1-6)`)
         .replace(/{@recharge}/g, `(Recharge 6)`)
         .replace(/{@h}/g, ``)
         .replace(/{@damage (.+?)}/g, `$1`)
@@ -44,12 +45,14 @@ function parseString(str: string) {
         .replace(/{@atkr r}/g, `Ranged Attack Roll:`)
         .replace(/{@atkr m,r}/g, `Melee or Ranged Attack Roll:`)
         .replace(/{@hom}/g, `Hit or Miss:`)
-        .replace(/{@creature (.+?)(?:\|.+)?}/g, `$1`)
-        .replace(/{@skill (.+?)(?:\|.+)?}/g, `$1`)
-        .replace(/{@dice (.+?)(?:\|.+)?}/g, `$1`)
-        .replace(/{@hit (\d+?)(?:\|.+)?}/g, `+$1`)
-        .replace(/{@dc (\d+?)(?:\|.+)?}/g, `$1`)
+        .replace(/{@creature (.+?)(?:\|.+?)?}/g, `$1`)
+        .replace(/{@skill (.+?)(?:\|.+?)?}/g, `$1`)
+        .replace(/{@dice (.+?)(?:\|.+?)?}/g, `$1`)
+        .replace(/{@hit (\d+?)(?:\|.+?)?}/g, `+$1`)
+        .replace(/{@dc (\d+?)(?:\|.+?)?}/g, `$1`)
         .replace(/{@quickref (.+?)\|\|.+?}/, `$1`)
+        .replace(/{@actTrigger}/g, `Trigger:`)
+        .replace(/{@actResponse}/g, `Response:`)
         .replace(/{@actSave str}/g, `Strength Saving Throw:`)
         .replace(/{@actSave dex}/g, `Dexterity Saving Throw:`)
         .replace(/{@actSave con}/g, `Constitution Saving Throw:`)
@@ -57,8 +60,11 @@ function parseString(str: string) {
         .replace(/{@actSave wis}/g, `Wisdom Saving Throw:`)
         .replace(/{@actSave cha}/g, `Charisma Saving Throw:`)
         .replace(/{@actSaveFail}/g, `Failure:`)
+        .replace(/{@actSaveFail 1}/g, `First Failure:`)
+        .replace(/{@actSaveFail 2}/g, `Second Failure:`)
+        .replace(/{@actSaveFail 3}/g, `Third Failure:`)
         .replace(/{@actSaveSuccess}/g, `Success:`)
-        .replace(/{actSaveSuccessOrFail}/g, `Failure or Success:`)
+        .replace(/{@actSaveSuccessOrFail}/g, `Failure or Success:`)
         .replace(/{@variantrule (.+?)( \[|\|).+?}/g,`$1`);
 
 }
