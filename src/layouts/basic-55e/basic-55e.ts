@@ -597,7 +597,6 @@ if (conditions == '') {
     },
     "0.25": {
         cr: "1/4",
-
         value: 0.25,
         xp: 50
     },
@@ -816,6 +815,15 @@ return "";`
         dice: true
     },
     {
+        type: "traits",
+        id: nanoid(),
+        properties: ["reactions"],
+        heading: "Reactions",
+        conditioned: true,
+
+        dice: true
+    },
+    {
         type: "group",
         id: nanoid(),
         properties: ["legendary_description", "legendary_actions"],
@@ -860,15 +868,6 @@ return "";`
             }
         ],
         conditioned: true
-    },
-    {
-        type: "traits",
-        id: nanoid(),
-        properties: ["reactions"],
-        heading: "Reactions",
-        conditioned: true,
-
-        dice: true
     },
     {
         type: "traits",
