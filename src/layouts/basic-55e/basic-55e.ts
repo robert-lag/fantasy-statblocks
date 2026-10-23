@@ -135,7 +135,7 @@ return \`\${initiative >= 0 ? "+" : ""}\${initiative} (\${initiative + 10})\`;`
                 dice: true,
                 diceProperty: "hit_dice",
                 diceCallback: `if ("hit_dice" in monster) {
-  return [{ text: monster.hit_dice }, \`\${monster.hit_dice}\`];
+  return [{ text: monster.hit_dice }, \`(\${monster.hit_dice})\`];
 } else {
   return property;
 }`,
