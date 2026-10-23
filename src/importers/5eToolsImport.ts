@@ -158,14 +158,9 @@ export async function build5eMonsterFromFile(file: File): Promise<Monster[]> {
                                 monster.trait?.flatMap(normalizeEntries) ?? [],
                             actions:
                                 monster.action?.flatMap(normalizeEntries) ?? [],
-                            bonus_actions:
-                                getBonusActions(monster),
-                            reactions:
-                                monster.reaction?.flatMap(normalizeEntries) ??
-                                [],
-                            legendary_actions:
-                                monster.legendary?.flatMap(normalizeEntries) ??
-                                [],
+                            bonus_actions: getBonusActions(monster),
+                            reactions: getReactions(monster),
+                            legendary_actions: getLegendaryActions(monster),
                             mythic_actions: [
                                 ...((monster.mythicHeader
                                     ? [
@@ -238,7 +233,7 @@ function getCR(type: Creature5eTools["cr"]) {
 function getBonusActions(monster: Creature5eTools) {
     const bonus_actions = monster.bonus?.flatMap(normalizeEntries) ?? [];
 
-    const spells = getBonusActionSpells(monster)
+    const spells = getFilteredSpells(monster, "bonus")
         .map(s => ({name: s.name, entries: spellBlockToEntries(s)}))
         .flatMap(normalizeEntries);
     bonus_actions.push(...spells);
@@ -246,11 +241,33 @@ function getBonusActions(monster: Creature5eTools) {
     return bonus_actions;
 }
 
-function getBonusActionSpells(monster: Creature5eTools): SpellBlock[] {
+function getReactions(monster: Creature5eTools) {
+    const reactions = monster.reaction?.flatMap(normalizeEntries) ?? [];
+
+    const spells = getFilteredSpells(monster, "reaction")
+        .map(s => ({name: s.name, entries: spellBlockToEntries(s)}))
+        .flatMap(normalizeEntries);
+    reactions.push(...spells);
+
+    return reactions;
+}
+
+function getLegendaryActions(monster: Creature5eTools) {
+    const legendary_actions = monster.legendary?.flatMap(normalizeEntries) ?? [];
+
+    const spells = getFilteredSpells(monster, "legendary")
+        .map(s => ({name: s.name, entries: spellBlockToEntries(s)}))
+        .flatMap(normalizeEntries);
+    legendary_actions.push(...spells);
+
+    return legendary_actions;
+}
+
+function getFilteredSpells(monster: Creature5eTools, filter: string): SpellBlock[] {
     if (!monster.spellcasting || !monster.spellcasting.length) return [];
 
     return monster.spellcasting
-        .filter(s => s.displayAs == "bonus")
+        .filter(s => s.displayAs == filter)
         .map(extractSpellBlock);
 }
 
@@ -484,7 +501,7 @@ function getActionSpellsText(monster: Creature5eTools): SpellText {
     if (!monster.spellcasting || !monster.spellcasting.length) return [];
 
     return monster.spellcasting
-        .filter(s => (s.displayAs ?? "") != "bonus")
+        .filter(s => !["bonus", "reaction", "legendary"].includes(s.displayAs ?? ""))
         .flatMap(extractSpellBlock)
         .flatMap(s => s.text);
 }

@@ -3404,7 +3404,7 @@ export interface EntrySpellcasting {
     /**
      * Implicitly "trait"
      */
-    displayAs?: "trait" | "action" | "bonus";
+    displayAs?: "trait" | "action" | "bonus" | "reaction" | "legendary";
     /**
      * The UID of an item which provides the charges required to cast any "charges" spells.
      */
