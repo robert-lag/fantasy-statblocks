@@ -16,15 +16,15 @@ tags: [Statblocks/Layout/dnd55e]
 
 On this page, you will find the layout block for the Dungeons and Dragons 5th Edition Statblock, visually based on the Systems Resource Document (SRD) version. 
 
-## Sample Image
+## Sample Images
 
->[!screenshot]- Screenshot of a Monster
-> ![]() Externally Linked Image here.
-> These can be uploaded in the publish/images folder first and linked after the fact.
-> Include it with your submission.
-> The CSS for the screenshot callout is already within our Publish cite, and is also found in the [admonition section](https://github.com/ObsidianTTRPGProject/ObsidianTTRPGShare/tree/main/System_Agnostic/admonitions) on the TTRPG Share. 
+>[!screenshot] - Screenshot of a Mummy Lord
+> ![Mummy Lord](./images/55e-mummy-lord.png)
 
-## Short Name Code Block
+>[!screenshot] - Screenshot of a Priest Acolyte
+> ![Priest Acolyte](./images/55e-priest-acolyte.png)
+
+## DnD 5.5e Code Block
 
 ````yaml
 ```statblock
@@ -107,7 +107,7 @@ spells:
 ````
 
 
-### Short Name Empty Codeblock
+### DnD 5.5e Empty Codeblock
 
 ````yaml
 ```statblock
@@ -118,7 +118,7 @@ size:
 type: 
 subtype: 
 alignment: 
-initiatives:
+initiative:
 ac: Number
 hp: Number
 hit_dice: 
