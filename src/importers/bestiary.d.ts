@@ -3397,13 +3397,14 @@ export interface EntrySpellcasting {
         | "yearly"
         | "ritual"
         | "spells"
+        | "charges"
     )[];
     footerEntries?: string[];
     ability?: "str" | "dex" | "con" | "int" | "wis" | "cha";
     /**
      * Implicitly "trait"
      */
-    displayAs?: "trait" | "action";
+    displayAs?: "trait" | "action" | "bonus";
     /**
      * The UID of an item which provides the charges required to cast any "charges" spells.
      */
