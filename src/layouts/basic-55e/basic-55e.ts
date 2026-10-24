@@ -153,7 +153,14 @@ if (score == null) return "";
 const modifier = Math.floor((score - 10) / 2);
 let initiative = modifier + (monster.initiative ?? 0);
 return \`\${initiative >= 0 ? "+" : ""}\${initiative} (\${initiative + 10})\`;`
-                    }
+                    },
+                    {
+                        type: "text",
+                        id: nanoid(),
+                        properties: [""],
+                        fallback: " ",
+                        text: ""
+                    },
                 ]
             },
             {
