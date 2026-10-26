@@ -32,6 +32,7 @@ function parseString(str: string) {
         .replaceAll(/{@item (.+?)(?:\|.+?)?}/g, "$1")
         .replaceAll(/{@spell ([\s\S]+?)(?:\|.+?)?}/g, `$1`)
         .replaceAll(/{@action ([\s\S]+?)(?:\|.+?)?}/g, `$1`)
+        .replaceAll(/{@status ([\s\S]+?)(?:\|.+?)?}/g, `$1`)
         .replace(/{@recharge (.+?)(?:\|.+?)?}/g, `(Recharge $1-6)`)
         .replace(/{@recharge}/g, `(Recharge 6)`)
         .replace(/{@h}/g, ``)
