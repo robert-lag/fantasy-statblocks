@@ -566,11 +566,7 @@ return \`\${initiative >= 0 ? "+" : ""}\${initiative} (\${initiative + 10})\`;`
                 conditioned: true,
                 callback: `let damages = monster.damage_immunities;
 let conditions = monster.condition_immunities;
-if (conditions == '') {
-    return damages;
-} else {
-    return damages + \"; \" + conditions;
-}`
+return [damages, conditions].filter(Boolean).join('; ');`
             },
             {
                 type: "property",
